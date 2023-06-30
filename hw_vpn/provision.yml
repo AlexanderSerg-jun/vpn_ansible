@@ -1,0 +1,23 @@
+--- 
+  - name: Install software
+    hosts: all
+    become: yes
+    tasks:
+     - name: Install repo
+       yum:
+         name:
+           - epel-release
+           
+         state: present
+         update_cache: true
+     - name: install soft
+       yum:
+         name:
+           - iperf3
+           - openvpn
+         state: installed
+         update_cache: true
+     - name: set up  config
+       template:
+          src: config/server/server.conf
+          dest: /etc/openvpn/server.conf
